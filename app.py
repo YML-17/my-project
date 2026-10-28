@@ -219,4 +219,4 @@ if __name__ == '__main__':
     init_db()
     print('数据库初始化完成。')
     print('后台登录账号: admin / 123456')
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=8080, )
