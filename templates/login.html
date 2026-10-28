@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}登录 - 后台管理{% endblock %}
+
+{% block content %}
+    <div class="form-card">
+        <h2>后台登录</h2>
+        <form method="POST" action="{{ url_for('login') }}">
+            <div class="form-group">
+                <label for="username">用户名</label>
+                <input type="text" id="username" name="username"
+                       placeholder="请输入用户名（默认 admin）" required autocomplete="username">
+            </div>
+            <div class="form-group">
+                <label for="password">密码</label>
+                <input type="password" id="password" name="password"
+                       placeholder="请输入密码（默认 123456）" required autocomplete="current-password">
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">登录</button>
+        </form>
+        <p style="text-align:center; margin-top: 16px; font-size: .85rem; color:#888;">
+            默认账号：admin / 123456
+        </p>
+    </div>
+{% endblock %}

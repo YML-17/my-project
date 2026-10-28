@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}{{ '编辑文章' if action == 'edit' else '发布新文章' }} - 后台管理{% endblock %}
+
+{% block content %}
+    <div class="admin-header">
+        <h1 class="page-title" style="margin-bottom:0;">
+            {{ '编辑文章' if action == 'edit' else '发布新文章' }}
+        </h1>
+        <a href="{{ url_for('admin') }}" class="btn btn-secondary">&larr; 返回管理列表</a>
+    </div>
+
+    <div style="background:#fff; border:1px solid #eee; border-radius:8px; padding:24px 28px;">
+        <form method="POST"
+              action="{{ url_for('edit_article', article_id=article['id']) if action == 'edit' else url_for('new_article') }}">
+            <div class="form-group">
+                <label for="title">文章标题 *</label>
+                <input type="text" id="title" name="title" required
+                       value="{{ article['title'] if article else '' }}"
+                       placeholder="请输入文章标题...">
+            </div>
+
+            <div class="form-group">
+                <label for="summary">摘要</label>
+                <textarea id="summary" name="summary" rows="2"
+                          placeholder="不填则自动截取内容前 150 字作为摘要">{{ article['summary'] if article else '' }}</textarea>
+                <div class="form-help">摘要会显示在文章列表页中，建议 50~150 字。</div>
+            </div>
+
+            <div class="form-group">
+                <label for="content">正文内容 *（支持 Markdown）</label>
+                <textarea id="content" name="content" rows="18" required
+                          placeholder="# 在此编写正文，支持 Markdown 语法...">{{ article['content'] if article else '' }}</textarea>
+                <div class="form-help">
+                    支持：标题、粗斜体、列表、引用、表格、代码块、链接、图片等 Markdown 语法。
+                </div>
+            </div>
+
+            <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:8px;">
+                <button type="submit" class="btn btn-primary">
+                    {{ '保存修改' if action == 'edit' else '发布文章' }}
+                </button>
+                <a href="{{ url_for('admin') }}" class="btn btn-secondary">取消</a>
+            </div>
+        </form>
+    </div>
+{% endblock %}

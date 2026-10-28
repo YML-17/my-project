@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}首页 - 我的技术博客{% endblock %}
+
+{% block content %}
+    <div class="banner">
+        <img src="{{ url_for('static', filename='assets/banner.png') }}" alt="Banner" class="banner-img">
+    </div>
+
+    <h1 class="page-title">最新文章</h1>
+
+    {% if articles %}
+        <ul class="article-list">
+            {% for art in articles %}
+                <li class="article-item">
+                    <h2 class="title">
+                        <a href="{{ url_for('article_detail', article_id=art['id']) }}">
+                            {{ art['title'] }}
+                        </a>
+                    </h2>
+                    <div class="meta">
+                        发布于 {{ art['created_at'] }}
+                    </div>
+                    <p class="summary">{{ art['summary'] }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <div class="empty-tip">
+            <p>暂无文章，请先登录后台发布第一篇文章～</p>
+            <p style="margin-top:10px;"><a href="{{ url_for('login') }}" class="btn btn-primary">去登录</a></p>
+        </div>
+    {% endif %}
+{% endblock %}

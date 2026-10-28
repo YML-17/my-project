@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}{{ article['title'] }} - 我的技术博客{% endblock %}
+
+{% block content %}
+    <article class="article-detail">
+        <h1 class="title">{{ article['title'] }}</h1>
+        <div class="meta">发布于 {{ article['created_at'] }}</div>
+        <div class="article-content">
+            {{ html_content|safe }}
+        </div>
+    </article>
+
+    <div style="margin-top: 30px; text-align: center;">
+        <a href="{{ url_for('index') }}" class="btn btn-secondary">&larr; 返回文章列表</a>
+    </div>
+{% endblock %}

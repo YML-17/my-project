@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}后台管理 - 我的技术博客{% endblock %}
+
+{% block content %}
+    <div class="admin-header">
+        <h1 class="page-title" style="margin-bottom:0;">文章管理</h1>
+        <a href="{{ url_for('new_article') }}" class="btn btn-primary">发布新文章</a>
+    </div>
+
+    {% if articles %}
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th style="width:50%;">标题</th>
+                    <th>发布时间</th>
+                    <th style="width:220px; text-align:right;">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for art in articles %}
+                    <tr>
+                        <td class="col-title">
+                            <a href="{{ url_for('article_detail', article_id=art['id']) }}" target="_blank">
+                                {{ art['title'] }}
+                            </a>
+                        </td>
+                        <td class="col-date">{{ art['created_at'] }}</td>
+                        <td style="text-align:right;">
+                            <div class="admin-actions" style="justify-content:flex-end;">
+                                <a href="{{ url_for('article_detail', article_id=art['id']) }}"
+                                   target="_blank" class="btn btn-secondary">查看</a>
+                                <a href="{{ url_for('edit_article', article_id=art['id']) }}"
+                                   class="btn btn-warning">编辑</a>
+                                <form method="POST"
+                                      action="{{ url_for('delete_article', article_id=art['id']) }}"
+                                      onsubmit="return confirm('确定删除文章「{{ art['title'] }}」吗？此操作不可恢复。');">
+                                    <button type="submit" class="btn btn-danger">删除</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="empty-tip">
+            <p>还没有任何文章。</p>
+            <p style="margin-top:10px;">
+                <a href="{{ url_for('new_article') }}" class="btn btn-primary">发布第一篇文章</a>
+            </p>
+        </div>
+    {% endif %}
+{% endblock %}
