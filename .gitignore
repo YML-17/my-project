@@ -1,0 +1,13 @@
+node_modules/
+venv/
+.venv/
+env/
+v/
+
+.env
+
+__pycache__/
+.pytest_cache/
+
+*.db
+blog.db
